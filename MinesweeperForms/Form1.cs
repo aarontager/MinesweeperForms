@@ -48,69 +48,129 @@ namespace MinesweeperForms
             {
                 case "Easy":
                     boardSize = 10;
-                    mineCount = 10;
-                    break;
-                case "Medium":
-                    boardSize = 15;
-                    mineCount = 15;
-                    break;
-                case "Hard":
-                    boardSize = 20;
                     mineCount = 20;
                     break;
-                case "Expert":
-                    boardSize = 30;
-                    mineCount = 30;
+                case "Medium":
+                    boardSize = 20;
+                    mineCount = 40;
+                    break;
+                case "Hard":
+                    boardSize = 25;
+                    mineCount = 50;
                     break;
             }
             _model = new MinesweeperModel(boardSize, mineCount);
             
-            SetupGameTable(boardSize);
-            SetupGameButtons(boardSize);
+            SetupGameTable();
+            SetupGameButtons();
             this.ResumeLayout(false);
         }
 
-        private void SetupGameTable(int boardSize)
+        private void SetupGameTable()
         {
-            _gamePanel = new TableLayoutPanel();
-            _gamePanel.ColumnCount = boardSize;
-            _gamePanel.RowCount = boardSize;
-            _gamePanel.Dock = DockStyle.Fill;
+            _gamePanel = new TableLayoutPanel
+            {
+                ColumnCount = _model.Size,
+                RowCount = _model.Size,
+                Dock = DockStyle.Fill
+            };
             tlpMain.Controls.Add(_gamePanel, 1, 0);
 
-            for (int i = 0; i < boardSize; i++)
+            for (int i = 0; i < _model.Size; i++)
             {
-                _gamePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F / boardSize));
-                _gamePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F / boardSize));
+                _gamePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F / _model.Size));
+                _gamePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F / _model.Size));
             }
         }
 
-        private void SetupGameButtons(int boardSize)
+        private void SetupGameButtons()
         {
-            _buttons = new Button[boardSize, boardSize];
-            for (int i = 0; i < boardSize; i++)
+            _buttons = new Button[_model.Size, _model.Size];
+            for (int i = 0; i < _model.Size; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < _model.Size; j++)
                 {
-                    Button tempButton = new Button();
-                    tempButton.Margin = new Padding(1);
-                    tempButton.Dock = DockStyle.Fill;
-                    tempButton.TextAlign = ContentAlignment.MiddleCenter;
-                    tempButton.Font = new Font(FontFamily.GenericMonospace, 16);
-
-                    Tile temp = _model.GetTile(i, j);
-                    if (temp.IsMine)
+                    Button tempButton = new Button
                     {
-                        tempButton.Text = "M";
-                    }
-                    else
-                    {
-                        tempButton.Text = temp.AdjacentMines.ToString();
-                    }
+                        Tag = i * _model.Size + j,
+                        Margin = new Padding(1),
+                        Dock = DockStyle.Fill,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Font = new Font(FontFamily.GenericMonospace, 20)
+                    };
+                    tempButton.MouseUp += btnGame_Click;
 
                     _buttons[i, j] = tempButton;
-                    _gamePanel.Controls.Add(_buttons[i, j], i, j);
+                    _gamePanel.Controls.Add(_buttons[i, j], j, i);
                 }
+            }
+        }
+
+        private void btnGame_Click(object sender, MouseEventArgs e)
+        {
+            Button tempButton = (Button) sender;
+            int tag = (int) tempButton.Tag;
+
+            if (e.Button == MouseButtons.Left)
+                _model.ClickTile(tag / _model.Size, tag % _model.Size);
+            else
+                _model.Flag(tag / _model.Size, tag % _model.Size);
+
+            UpdateGUI();
+            ShowMessageIfGameOver();
+        }
+
+        private void UpdateGUI()
+        {
+            for (int i = 0; i < _model.Size; i++)
+            {
+                for (int j = 0; j < _model.Size; j++)
+                {
+                    //Reset the button styling in case a tile was unflagged
+                    _buttons[i, j].BackColor = DefaultBackColor;
+                    _buttons[i, j].UseVisualStyleBackColor = true;
+
+                    Tile tile = _model.GetTile(i, j);
+                    if (tile.IsFlagged)
+                    {
+                        _buttons[i, j].BackColor = Color.Red;
+                    }
+                    else if (tile.IsRevealed)
+                    {
+                        if (tile.IsMine)
+                        {
+                            _buttons[i, j].BackColor = Color.Black;
+                        }
+                        else
+                        {
+                            _buttons[i, j].Text = tile.AdjacentMines.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ShowMessageIfGameOver()
+        {
+            if (_model.IsLost)
+            {
+                StopGame();
+                MessageBox.Show("You lose!", "Aaron Tager's Minesweeper MVC Project");
+            }
+
+            if (_model.IsWon)
+            {
+                StopGame();
+                MessageBox.Show("You win!", "Aaron Tager's Minesweeper MVC Project");
+            }
+        }
+
+        private void StopGame()
+        {
+            tmrGame.Stop();
+            foreach (Button button in _buttons)
+            {
+                button.MouseUp -= btnGame_Click;
             }
         }
     }

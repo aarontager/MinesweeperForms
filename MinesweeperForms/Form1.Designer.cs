@@ -45,12 +45,14 @@ namespace MinesweeperForms
             // 
             // tlpMain
             // 
+            this.tlpMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tlpMain.Controls.Add(this.tlpMenu, 0, 0);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
+            this.tlpMain.Margin = new System.Windows.Forms.Padding(5);
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 1;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -67,14 +69,15 @@ namespace MinesweeperForms
             this.tlpMenu.Controls.Add(this.pnlDifficulty, 0, 1);
             this.tlpMenu.Controls.Add(this.label1, 0, 2);
             this.tlpMenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMenu.Location = new System.Drawing.Point(3, 3);
+            this.tlpMenu.Location = new System.Drawing.Point(5, 5);
+            this.tlpMenu.Margin = new System.Windows.Forms.Padding(5);
             this.tlpMenu.Name = "tlpMenu";
             this.tlpMenu.RowCount = 4;
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpMenu.Size = new System.Drawing.Size(310, 675);
+            this.tlpMenu.Size = new System.Drawing.Size(306, 671);
             this.tlpMenu.TabIndex = 1;
             // 
             // lblDifficulty
@@ -83,10 +86,10 @@ namespace MinesweeperForms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDifficulty.AutoSize = true;
             this.lblDifficulty.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDifficulty.Location = new System.Drawing.Point(10, 118);
+            this.lblDifficulty.Location = new System.Drawing.Point(10, 117);
             this.lblDifficulty.Margin = new System.Windows.Forms.Padding(10, 0, 10, 25);
             this.lblDifficulty.Name = "lblDifficulty";
-            this.lblDifficulty.Size = new System.Drawing.Size(290, 25);
+            this.lblDifficulty.Size = new System.Drawing.Size(286, 25);
             this.lblDifficulty.TabIndex = 0;
             this.lblDifficulty.Text = "Please select a difficulty level:";
             this.lblDifficulty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -96,19 +99,20 @@ namespace MinesweeperForms
             this.pnlDifficulty.Controls.Add(this.btnStart);
             this.pnlDifficulty.Controls.Add(this.cmbDifficulty);
             this.pnlDifficulty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDifficulty.Location = new System.Drawing.Point(3, 171);
+            this.pnlDifficulty.Location = new System.Drawing.Point(0, 167);
+            this.pnlDifficulty.Margin = new System.Windows.Forms.Padding(0);
             this.pnlDifficulty.Name = "pnlDifficulty";
             this.pnlDifficulty.Padding = new System.Windows.Forms.Padding(50);
-            this.pnlDifficulty.Size = new System.Drawing.Size(304, 162);
+            this.pnlDifficulty.Size = new System.Drawing.Size(306, 167);
             this.pnlDifficulty.TabIndex = 3;
             // 
             // btnStart
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnStart.Location = new System.Drawing.Point(50, 89);
+            this.btnStart.Location = new System.Drawing.Point(50, 94);
             this.btnStart.Margin = new System.Windows.Forms.Padding(0);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(204, 23);
+            this.btnStart.Size = new System.Drawing.Size(206, 23);
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "START GAME";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -121,24 +125,23 @@ namespace MinesweeperForms
             this.cmbDifficulty.Items.AddRange(new object[] {
             "Easy",
             "Medium",
-            "Hard",
-            "Expert"});
+            "Hard"});
             this.cmbDifficulty.Location = new System.Drawing.Point(50, 50);
             this.cmbDifficulty.Margin = new System.Windows.Forms.Padding(0);
             this.cmbDifficulty.Name = "cmbDifficulty";
-            this.cmbDifficulty.Size = new System.Drawing.Size(204, 23);
-            this.cmbDifficulty.TabIndex = 1;
             this.cmbDifficulty.SelectedItem = "Easy";
+            this.cmbDifficulty.Size = new System.Drawing.Size(206, 23);
+            this.cmbDifficulty.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(25, 361);
+            this.label1.Location = new System.Drawing.Point(25, 359);
             this.label1.Margin = new System.Windows.Forms.Padding(25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 25);
+            this.label1.Size = new System.Drawing.Size(256, 25);
             this.label1.TabIndex = 4;
             this.label1.Text = "Time: 0:00";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
