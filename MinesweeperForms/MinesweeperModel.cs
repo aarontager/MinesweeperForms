@@ -112,17 +112,6 @@ namespace MinesweeperForms
             }
         }
 
-        private void CheckWinner()
-        {
-            foreach (Tile tile in _board)
-            {
-                if (!tile.IsMine && !tile.IsRevealed)
-                    return;
-            }
-
-            IsWon = true;
-        }
-
         private void SetNeighborCount(int row, int col)
         {
             foreach (Tile neighborTile in GetNeighborTiles(row, col))
@@ -157,6 +146,17 @@ namespace MinesweeperForms
         private bool CheckColumnBounds(int col)
         {
             return col >= 0 && col < Size;
+        }
+
+        private void CheckWinner()
+        {
+            foreach (Tile tile in _board)
+            {
+                if (!tile.IsMine && !tile.IsRevealed)
+                    return;
+            }
+
+            IsWon = true;
         }
     }
 }
