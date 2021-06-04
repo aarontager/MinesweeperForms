@@ -40,7 +40,7 @@ namespace MinesweeperForms
             }
         }
 
-        public Tile GetTile(int row, int col)
+        public Tile GetTileString(int row, int col)
         {
             return _board[row, col];
         }
@@ -59,7 +59,7 @@ namespace MinesweeperForms
                 _firstClick = true;
             }
 
-            Tile clicked = GetTile(row, col);
+            Tile clicked = GetTileString(row, col);
 
             if (clicked.IsRevealed || clicked.IsFlagged)
                 return;
@@ -69,6 +69,7 @@ namespace MinesweeperForms
             if (clicked.IsMine)
             {
                 IsLost = true;
+                RevealAllMines();
                 return;
             }
 
@@ -135,6 +136,15 @@ namespace MinesweeperForms
                         yield return _board[rowCheck, colCheck];
                     }
                 }
+            }
+        }
+
+        private void RevealAllMines()
+        {
+            foreach (Tile tile in _board)
+            {
+                if (tile.IsMine)
+                    tile.IsRevealed = true;
             }
         }
 

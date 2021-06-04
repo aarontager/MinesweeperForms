@@ -130,7 +130,7 @@ namespace MinesweeperForms
                     _buttons[i, j].BackColor = DefaultBackColor;
                     _buttons[i, j].UseVisualStyleBackColor = true;
 
-                    Tile tile = _model.GetTile(i, j);
+                    Tile tile = _model.GetTileString(i, j);
                     if (tile.IsFlagged)
                     {
                         _buttons[i, j].BackColor = Color.Red;
